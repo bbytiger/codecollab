@@ -10,8 +10,7 @@ router.get("/login", (req, res)=>{
 })
 
 router.get("/signup", (req, res) => {
-  var k = actions.signup("test", "test")
-  res.send(k)
+  actions.signup("tes2t", "test").then((k) => {console.log(k); res.send(k)})
 })
 
 router.get("/", (req, res) => {

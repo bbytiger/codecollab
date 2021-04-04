@@ -12,30 +12,37 @@ function gen_db() {
   return db;
 }
 
-function check_unique(username) {
-  var unique_query = "SELECT * FROM users WHERE name='" + username + "'"
-  var db = gen_db()
+const db = gen_db()
 
-  var someVar = []
-  function setValue(val) {
-    someVar = val
-  }
-  
-  db.serialize(() => {
-    db.all(unique_query, (err, rows) => {
-      if (err) {
-        throw err
-      }
-      setValue(rows)
-      console.log(someVar)
+function select_user(username) {
+  var unique_query = "SELECT * FROM users WHERE name='" + username + "'"
+
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      db.all(unique_query, (err, rows) => {
+        if (err) {
+          return reject(err)
+        }
+        resolve(rows)
+      })
     })
   })
 }
 
+function create_user(username, password) {
+  var query = `INSERT INTO users (name, hashed_pass) VALUES ('${username}','${password}')`
+  return new Promise((resolve, reject) => {
+    db.run(query, (err, res) => {
+      if (err) {
+        throw reject(err)
+      }
+      resolve(res)
+    })
+  })
+}
 
 module.exports.login = function(username, password) {
   var query = "SELECT * FROM users WHERE name=" + username
-  var db = gen_db()
   db.serialize(() => {
     var ret = db.run(query)
     console.log(ret)
@@ -43,18 +50,21 @@ module.exports.login = function(username, password) {
 }
 
 module.exports.signup = function(username, password) {
-  var query = "INSERT INTO users (name, hashed_pass) VALUES ('"+username+"','"+password+"')"
-  var db = gen_db()
-  
-  if (!check_unique(username)) {
-    return "user already exists"
-  }
-  else {
-    db.run(query, (err) => {
-      if (err) {
-        throw err
+  return select_user(username)
+    .then(
+      (res) => {
+      if (res.length >= 1) {
+        return "user already exists"
+      } else {
+        create_user(username, password).then(() => {
+          return "user created"
+        })
+        .catch((err) => {
+          throw err;
+        })
       }
     })
-    return "user created"
-  }
+    .catch((err) => {
+      throw err;
+    })
 }
