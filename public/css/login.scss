@@ -1,0 +1,22 @@
+@import './var';
+
+@mixin flexcenter($back) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $back;
+}
+
+.login_page {
+  @include flexcenter($primary);
+
+  button {
+    &:hover {
+      background: blue;
+    }
+  }
+
+  .login_btn_color {
+    background: $primary;
+  }
+}
