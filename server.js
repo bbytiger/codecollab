@@ -6,11 +6,11 @@ const port = 3000
 const actions = require('./db/actions')
 
 router.get("/login", (req, res)=>{
-  res.redirect("templates/login.html")
+  actions.login("te4t","test").then((k) => res.send(k))
 })
 
 router.get("/signup", (req, res) => {
-  actions.signup("tes2t", "test").then((k) => {console.log(k); res.send(k)})
+  actions.signup("te4t", "test").then((k) => res.send(k))
 })
 
 router.get("/", (req, res) => {

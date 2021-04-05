@@ -43,10 +43,19 @@ function create_user(username, password) {
 
 module.exports.login = function(username, password) {
   var query = "SELECT * FROM users WHERE name=" + username
-  db.serialize(() => {
-    var ret = db.run(query)
-    console.log(ret)
-  })  
+  return select_user(username)
+    .then((res) => {
+      console.log(res)
+      if (res.length != 1) {
+        return "authentication error"
+      }
+      else if (res[0].hashed_pass !== password) {
+        return "authentication error"
+      }
+      return "authentication succeeded"
+    }).catch((err) => {
+      throw err
+    })
 }
 
 module.exports.signup = function(username, password) {
@@ -56,7 +65,7 @@ module.exports.signup = function(username, password) {
       if (res.length >= 1) {
         return "user already exists"
       } else {
-        create_user(username, password).then(() => {
+        return create_user(username, password).then(() => {
           return "user created"
         })
         .catch((err) => {
