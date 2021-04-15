@@ -1,0 +1,26 @@
+.editor {
+  background: white;
+  border: 2px solid rgba(255,255,255,.5);
+  box-shadow: 5px 5px 5px 5px rgba(177, 177, 177, 0.5);
+  width: 70vw;
+  height: 70vh;
+}
+
+.canvas {
+  display: flex;
+  height: 100%;
+}
+
+.edit-content {
+  background: darkgray;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+body {
+  position: absolute;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}

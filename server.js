@@ -14,11 +14,15 @@ router.get("/signup", (req, res) => {
 })
 
 router.get("/", (req, res) => {
-  res.redirect("templates/index.html")
+  res.redirect("templates/login.html")
 })
 
 router.get("/editor", (req, res)=> {
   res.redirect("templates/editor.html")
+})
+
+router.get("/dashboard", (req, res)=> {
+  res.redirect("templates/dashboard.html")
 })
 
 app.use("/", router)
