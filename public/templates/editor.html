@@ -2,12 +2,16 @@
 <html>
   <head>
     <link rel="stylesheet" href="/css/editor.css"/>
+    <script src="/js/editor.js"></script>
   </head>
   <body>
     <div class="canvas">
       <div class="edit-content">
-        <p>Go ahead and start editing</p>
-        <p class="loading" id="loading">Saving document....</p>
+        <div class="header">
+          <p class="header_title">Go ahead and start editing!</p>
+          <button class="clear_button" type="button" onclick="clear_doc()">Clear</button>
+          <button class="save_button" type="button" onclick="save_doc()">Save</button>
+        </div>
         <div class="editor" contenteditable="true" id="editor"></div>
       </div>
     </div>

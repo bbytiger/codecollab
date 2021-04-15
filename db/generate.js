@@ -1,3 +1,5 @@
+// code for setting up the sqlite schema
+
 const sqlite3 = require('sqlite3').verbose()
 
 let db = new sqlite3.Database('./test.db', (err) => {
