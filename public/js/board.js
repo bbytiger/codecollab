@@ -28,9 +28,9 @@ const move = function(e) {
 
 const drawstroke = function(c, x, y) {
   console.log(x,y)
-  c.fillStyle = "rgba(0,0,0,1)";
+  //c.fillStyle = "rgba(0,0,0,1)";
   c.beginPath();
-  ctx.arc(x, y, 1, 0, Math.PI*2, true);
+  ctx.arc(x, y, 5, 0, Math.PI*2, true);
   c.closePath();
   c.fill();
 }
@@ -53,7 +53,7 @@ const getposition = function(e) {
 
 window.onload = function() {
   canvas = document.getElementById("whiteboard")
-  canvas.width = window.innerWidth;
+  canvas.width = window.innerWidth; // can multiply this to expand the board size
   canvas.height = window.innerHeight;
   ctx = canvas.getContext("2d");
   if (ctx) {
