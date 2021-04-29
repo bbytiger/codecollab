@@ -51,6 +51,10 @@ router.get("/dashboard", (req, res)=> {
   res.redirect("templates/dashboard.html")
 })
 
+router.get("/whiteboard",(req, res)=> {
+  res.redirect("templates/board.html")
+})
+
 app.use("/", router)
 
 app.use(express.static(path.join(__dirname, 'public')));
